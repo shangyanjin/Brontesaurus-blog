@@ -1,7 +1,9 @@
 {{set . "title" "Home"}}
 {{template "header.html" .}}
 
-<h1>{{.greeting}}</h1>
+<h1>{{.post.Title}}</h1>
+
+<p>{{.post.Body}}</p>
 
 {{template "footer.html" .}}
 

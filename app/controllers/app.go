@@ -11,14 +11,9 @@ type Application struct {
 }
 
 func (c Application) Index() revel.Result {
-  // a := models.Post{"A Title", "a-title", "a cool body", 0}
-  // a.Validate(c.Validation)
+  post := models.Post{}
+  post.Last()
+  fmt.Println(post.Title)
 
-  p := models.Post{}
-  p.Last()
-  fmt.Println(p)
-
-  greeting := "Aloha World"
-  return c.Render(greeting)
-	// return c.Render()
+  return c.Render(post)
 }

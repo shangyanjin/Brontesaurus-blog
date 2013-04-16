@@ -2,14 +2,24 @@ package models
 
 import (
   "fmt"
+  "encoding/json"
+  "github.com/garyburd/redigo/redis"
   "github.com/robfig/revel"
 )
+
+var c redis.Conn
 
 type Post struct {
   Title              string
   Slug               string
   Body               string
   CreatedAt          int
+}
+
+func log_fatal(err error) {
+  if err != nil {
+    fmt.Println(err)
+  }
 }
 
 func (post *Post) Validate(v *revel.Validation) {
@@ -35,7 +45,14 @@ func (post *Post) Last(){
 
   if(!found) { return }
 
-  fmt.Println(val)
+  c, err := redis.Dial("tcp", ":6379")
+  log_fatal(err)
 
-  post.Title = "Hi"
+  post_key, err := redis.String(c.Do("lindex", val+":posts", 0))
+  log_fatal(err)
+
+  data, err := redis.Bytes(c.Do("get", post_key))
+
+  er := json.Unmarshal(data, &post)
+  log_fatal(er)
 }
