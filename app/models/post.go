@@ -30,10 +30,12 @@ func (post *Post) Save() {
 
 }
 
-func (post *Post) Last() {
+func (post *Post) Last(){
   val, found := revel.Config.String("app.name")
 
   if(!found) { return }
 
   fmt.Println(val)
+
+  post.Title = "Hi"
 }

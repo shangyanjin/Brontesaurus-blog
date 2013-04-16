@@ -1,7 +1,7 @@
 package controllers
 
 import (
-  // "fmt"
+  "fmt"
   "github.com/robfig/revel"
   "brontesaurus-blog/app/models"
 )
@@ -11,11 +11,12 @@ type Application struct {
 }
 
 func (c Application) Index() revel.Result {
-  // p := models.Post{"A Title", "a-title", "a cool body", 0}
-  // p.Validate(c.Validation)
-  // fmt.Println(p)
+  // a := models.Post{"A Title", "a-title", "a cool body", 0}
+  // a.Validate(c.Validation)
 
-  models.Post.Last()
+  p := models.Post{}
+  p.Last()
+  fmt.Println(p)
 
   greeting := "Aloha World"
   return c.Render(greeting)
